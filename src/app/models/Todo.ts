@@ -1,4 +1,4 @@
-export class Todo{
-    content:string;
+export interface Task {
+    value:string;
     completed:boolean;
 }

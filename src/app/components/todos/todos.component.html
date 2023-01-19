@@ -1,21 +1,40 @@
-<div class="todos">
-  <form (submit)="addTodo()">
-    <input
-      type="text"
-      name="inputTodo"
-      placeholder="Enter todo.."
-      class="todo-input"
-      [(ngModel)]="inputTodo"
-    />
-    <input type="submit" value="Add todo" class="todo-submit" />
+<div class="container">
+  <h1>Angular To-do App</h1>
+  <form (submit)="addTask()">
+    <div>
+      <input
+        type="text"
+        [(ngModel)]="inpText"
+        class="input"
+        name="inpText"
+        placeholder="Add task..."
+        required
+        #taskInput
+        #inpTex="ngModel"
+      />
+      <button [disabled]="inpTex.invalid" type="submit" class="submit-btn">
+        Add Task
+      </button>
+    </div>
+    <small *ngIf="inpTex.invalid && (inpTex.dirty || inpTex.touched)" class="error">Please add a Task</small>
   </form>
-  <div
-    *ngFor="let items of todos; let i = index"
-    class="todo"
-    [ngClass]="{ done: items.completed, '': '!todo.completed' }"
-  >
-    <div class="id">{{ i + 1 }}</div>
-    <div class="content" (click)="toggleDone(i)">{{ items.content }}</div>
-    <button class="delete" (click)="deleteTodo(i)">Remove</button>
+
+  <!--Display-->
+  <div class="display-container">
+    <h4>Todo Value goes here:</h4>
+    <div class="empty-state" *ngIf="!taskList.length">
+      <span>No List at the moment :(</span>
+    </div>
+    <ng-container *ngFor="let task of taskList; let i = index">
+      <div *ngIf="taskList.length" class="display-list">
+        <p [ngClass]="{ taskComepleted: task.completed }">
+          {{ i + 1 }}. {{ task.value }}
+        </p>
+        <div>
+          <span class="tick" (click)="completeTask(i)">Check</span>
+          <span class="cross" (click)="deleteTask(i)">X</span>
+        </div>
+      </div>
+    </ng-container>
   </div>
 </div>

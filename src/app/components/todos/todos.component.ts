@@ -1,53 +1,42 @@
-import { ValueConverter } from '@angular/compiler/src/render3/view/template';
-import { Component, OnInit } from '@angular/core';
-import {Todo} from './../../models/Todo';
+import {Component, ViewChild, ElementRef} from '@angular/core';
+import {Task} from './../../models/Todo';
 
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.component.html',
   styleUrls: ['./todos.component.css']
 })
-export class TodosComponent implements OnInit {
+export class TodosComponent {
+  inpText: string = '';
+  taskList: Task[] = JSON.parse(localStorage.getItem('taskList')) || [];
+  @ViewChild('taskInput') taskInput: ElementRef | undefined;
 
-  todos : Todo[];
-  inputTodo:string = "";
-
-  constructor() { }
-
-  ngOnInit(): void {
-    this.todos = [
-    {
-      content:"Eat food",
-      completed:true,
-    },
-    {
-      content:"Sleep",
-      completed: false,
-    },
-    {
-      content:"Read",
-      completed:false,
-    },
-    ]
-  }
-  toggleDone(id:number){
-    this.todos.map((value,index)=>{
-      if(index==id) value.completed = !value.completed;
-      return value;
-    })
+  setData(array: Task[]) {
+    localStorage.setItem('taskList', JSON.stringify(array));
   }
 
-  deleteTodo(id:number){
-    this.todos = this.todos.filter((v,i)=> i !== id)
+  addTask(): void {
+    if (this.inpText !== '') {
+      this.taskList.push({
+        value: this.inpText,
+        completed: false,
+      });
+    }
+    this.inpText = '';
+    this.taskInput.nativeElement.focus();
+    this.setData(this.taskList);
   }
-
-  addTodo(){
-    this.todos.push({
-      content: this.inputTodo,
-      completed: false,
+  completeTask(id: number) {
+    this.taskList.map((v, i) => {
+      if (i == id) {
+        v.completed = !v.completed;
+      }
+      this.setData(this.taskList);
     });
-    this.inputTodo=''
+  }
+  deleteTask(id: number): void {
+    this.taskList = this.taskList.filter((v, i) => i !== id);
+    this.setData(this.taskList);
   }
 
-  
 }

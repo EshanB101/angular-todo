@@ -1,53 +1,79 @@
-.todo {
+.container {
+  background-color: #85FFBD;
+  background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);;
+  height: 100vh;
+  padding: 12px;
+}
+
+h1,h4 {
+  margin-bottom: 24px;
+}
+
+.display-container {
+  margin: 24px 12px;
+}
+
+.input {
+  padding: 14px;
+  border-radius: 8px;
+}
+
+.submit-btn {
+  border-radius: 8px;
+  padding: 16px;
+  margin-left: 12px;
+  cursor: pointer;
+  background-color: #da291c;
+  color: white;
+  border: 2px solid white;
+}
+
+.submit-btn:disabled {
+  cursor: not-allowed;
+  background-color: rgb(187, 196, 187);
+  color: rgb(141, 134, 134);
+  border: 2px solid rgb(187, 196, 187);
+}
+.display-list {
   display: flex;
-  padding: 10px 15px;
-  background-color: #fff;
-  border-bottom: 1px solid #ddd;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 8px;
 }
 
-.todo:nth-child(even) {
-  background-color: #eee;
+.display-list:nth-child(2n) {
+  background-color: #FFFB7D;
+  background-image: linear-gradient(45deg, #FFFB7D 0%, #FFFB7D 100%);
 }
 
-/* last elemt na remove border */
-.todo:last-of-type {
-  border-bottom: 0;
+.cross {
+  color: red;
+  cursor: pointer;
+  margin-left: 12px;
+  font-size: 16px;
+}
+.tick {
+  color: green;
+  cursor: pointer;
+  margin-left: 12px;
+  font-size: 16px;
 }
 
-.todo .id {
-  flex: 1 1 50px;
-}
-
-.todo .content {
-  flex: 1 1 100%;
-}
-/*To strike any with class done*/
-.todo.done .content {
+.taskComepleted {
   text-decoration: line-through;
 }
-
-.todo-input {
-  display: block;
-  width: 100%;
-  padding: 10px 15px;
-  appearance: none;
-  border: none;
-  background-color: #f3f3f3;
-  margin-top: 15px;
-  font-size: 20px;
-  outline: none;
+.error {
+  color: red;
 }
-.todo-submit {
-  display: block;
-  width: 100%;
-  max-width: 200px;
-  appearance: none;
-  border: none;
-  outline: none;
-  background: none;
-  background-color: #fe4880;
-  color: #fff;
-  padding: 10px 15px;
-  font-size: 18px;
-  font-weight: 700;
+
+.empty-state {
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty-state span {
+  font-weight: bold;
+  font-style: italic;
 }
